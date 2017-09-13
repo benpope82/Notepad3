@@ -2196,7 +2196,7 @@ EDITLEXER lexANSI = { SCLEX_NULL, 63258, L"ANSI Art", L"nfo; diz", L"", &KeyWord
                       { -1, 00000, L"", L"", L"" } } };
 
 
-KEYWORDLIST KeyWords_AHK = {
+KEYWORDLIST KeyWords_AHKL = {
   /// Directives
   "#clipboardtimeout #commentflag #errorstdout #escapechar "
   "#hotkeyinterval #hotkeymodifiertimeout #hotstring #if #iftimeout #ifwinactive #ifwinexist #include "
@@ -2373,36 +2373,36 @@ KEYWORDLIST KeyWords_AHK = {
   ""
 };
 
-EDITLEXER lexAHK = { SCLEX_AHK, 63305, L"AutoHotkey Script", L"ahk; ia; scriptlet", L"", &KeyWords_AHK, {
+EDITLEXER lexAHKL = { SCLEX_AHKL, 63305, L"AutoHotkeyL Script", L"ahk; ia; scriptlet", L"", &KeyWords_AHKL, {
                      { STYLE_DEFAULT, 63126, L"Default", L"", L"" },
-                     //{ SCE_AHK_NEUTRAL, L"Default", L"", L"" },
-                     { MULTI_STYLE(SCE_AHK_COMMENTLINE,SCE_AHK_COMMENTBLOCK,SCE_AHK_COMMENTKEYWORD,SCE_AHK_COMMENTDOC), 63127, L"Comment", L"fore:#008000", L"" },
-                     { SCE_AHK_ESCAPESEQ, 63306, L"Escape Seq", L"fore:#FF8000", L"" },
-                     { SCE_AHK_HOTKEY, 63307, L"Hot Key", L"fore:#7F200F", L"" },
-                     { SCE_AHK_HOTSTRING, 63308, L"Hot String", L"fore:#8F496F", L"" },
-                     { SCE_AHK_HOTSTRINGOPT, 63309, L"Hot String Opts", L"fore:#404040", L"" },
-                     { SCE_AHK_STRING, 63131, L"String", L"fore:#404040", L"" },
-                     { SCE_AHK_STRINGOPTS, 63310, L"String Opts", L"fore:#404040", L"" },
-                     { SCE_AHK_STRINGBLOCK, 63311, L"String Block", L"fore:#404040", L"" },
-                     { SCE_AHK_STRINGCOMMENT, 63312, L"String Comment", L"fore:#008080", L"" },
-                     { SCE_AHK_DECNUMBER, 63130, L"Dec Number", L"fore:#2F4F7F", L"" },
-                     { SCE_AHK_HEXNUMBER, 63313, L"Hex Number", L"fore:#2F4F7F", L"" },
-                     { SCE_AHK_IDENTIFIER, 63129, L"Identifier", L"fore:#000040", L"" },
-                     { SCE_AHK_VAR, 63314, L"Variable keyword", L"fore:#CF00CF; italics; back:#F9F9FF", L"" },
-                     { SCE_AHK_VARREF, 63315, L"Variable dereferencing", L"fore:#CF2F0F; back:#E4FFE4", L"" },
-                     { SCE_AHK_LABEL, 63235, L"Label", L"fore:#000000; back:#FFFFA1", L"" },
-                     { SCE_AHK_CONTROLFLOW, 63316, L"Flow of control", L"fore:#480048; bold", L"" },
-                     { SCE_AHK_COMMAND, 63236, L"Command", L"fore:#003CE6", L"" },
-                     { SCE_AHK_DIRECTIVE, 63203, L"Directive", L"fore:#F04020; italics", L"" },
-                     { SCE_AHK_KEY, 63317, L"Keys & Buttons", L"fore:#FF00FF; bold", L"" },
-                     { SCE_AHK_OBJECT, 63318, L"Object", L"fore:#FF00FF; bold", L"" },
-                     { SCE_AHK_BUILTINFUNCTION, 63277, L"Function", L"fore:#0F707F; italics", L"" },
-                     { SCE_AHK_BUILTINVAR, 63319, L"Built-in Variables", L"fore:#2286AC; italics", L"" },
-                     { SCE_AHK_PARAM, 63294, L"Parameter", L"fore:#0000FF; italics", L"" },
-                     { SCE_AHK_USERFUNCTION, 63360, L"User-Defined Function", L"fore:#800020", L"" },
-                     //{ SCE_AHK_USERDEFINED1, 63106, L"User Defined 1", L"fore:#800020", L"" },
-                     //{ SCE_AHK_USERDEFINED2, 63106, L"User Defined 2", L"fore:#800020", L"" },
-                     { SCE_AHK_ERROR, 63260, L"Error", L"back:#FFC0C0", L"" },
+                     //{ SCE_AHKL_NEUTRAL, L"Default", L"", L"" },
+                     { MULTI_STYLE(SCE_AHKL_COMMENTLINE,SCE_AHKL_COMMENTBLOCK,SCE_AHKL_COMMENTKEYWORD,SCE_AHKL_COMMENTDOC), 63127, L"Comment", L"fore:#008000", L"" },
+                     { SCE_AHKL_ESCAPESEQ, 63306, L"Escape Seq", L"fore:#FF8000", L"" },
+                     { SCE_AHKL_HOTKEY, 63307, L"Hot Key", L"fore:#7F200F", L"" },
+                     { SCE_AHKL_HOTSTRING, 63308, L"Hot String", L"fore:#8F496F", L"" },
+                     { SCE_AHKL_HOTSTRINGOPT, 63309, L"Hot String Opts", L"fore:#404040", L"" },
+                     { SCE_AHKL_STRING, 63131, L"String", L"fore:#404040", L"" },
+                     { SCE_AHKL_STRINGOPTS, 63310, L"String Opts", L"fore:#404040", L"" },
+                     { SCE_AHKL_STRINGBLOCK, 63311, L"String Block", L"fore:#404040", L"" },
+                     { SCE_AHKL_STRINGCOMMENT, 63312, L"String Comment", L"fore:#008080", L"" },
+                     { SCE_AHKL_DECNUMBER, 63130, L"Dec Number", L"fore:#2F4F7F", L"" },
+                     { SCE_AHKL_HEXNUMBER, 63313, L"Hex Number", L"fore:#2F4F7F", L"" },
+                     { SCE_AHKL_IDENTIFIER, 63129, L"Identifier", L"fore:#000040", L"" },
+                     { SCE_AHKL_VAR, 63314, L"Variable keyword", L"fore:#CF00CF; italics; back:#F9F9FF", L"" },
+                     { SCE_AHKL_VARREF, 63315, L"Variable dereferencing", L"fore:#CF2F0F; back:#E4FFE4", L"" },
+                     { SCE_AHKL_LABEL, 63235, L"Label", L"fore:#000000; back:#FFFFA1", L"" },
+                     { SCE_AHKL_CONTROLFLOW, 63316, L"Flow of control", L"fore:#480048; bold", L"" },
+                     { SCE_AHKL_COMMAND, 63236, L"Command", L"fore:#003CE6", L"" },
+                     { SCE_AHKL_DIRECTIVE, 63203, L"Directive", L"fore:#F04020; italics", L"" },
+                     { SCE_AHKL_KEY, 63317, L"Keys & Buttons", L"fore:#FF00FF; bold", L"" },
+                     { SCE_AHKL_OBJECT, 63318, L"Object", L"fore:#FF00FF; bold", L"" },
+                     { SCE_AHKL_BUILTINFUNCTION, 63277, L"Function", L"fore:#0F707F; italics", L"" },
+                     { SCE_AHKL_BUILTINVAR, 63319, L"Built-in Variables", L"fore:#2286AC; italics", L"" },
+                     { SCE_AHKL_PARAM, 63294, L"Parameter", L"fore:#0000FF; italics", L"" },
+                     { SCE_AHKL_USERFUNCTION, 63360, L"User-Defined Function", L"fore:#800020", L"" },
+                     //{ SCE_AHKL_USERDEFINED1, 63106, L"User Defined 1", L"fore:#800020", L"" },
+                     //{ SCE_AHKL_USERDEFINED2, 63106, L"User Defined 2", L"fore:#800020", L"" },
+                     { SCE_AHKL_ERROR, 63260, L"Error", L"back:#FFC0C0", L"" },
                      { -1, 00000, L"", L"", L"" } } };
 
 
@@ -2690,7 +2690,7 @@ PEDITLEXER pLexArray[NUMLEXERS] =
 {
   &lexDefault,
   &lexANSI,
-  &lexAHK,
+  &lexAHKL,
   &lexASM,
   &lexAU3,
   &lexAVS,

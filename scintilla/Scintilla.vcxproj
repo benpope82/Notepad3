@@ -190,7 +190,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="deelx\DeelxRegexSearch.cxx" />
-    <ClCompile Include="lexers\LexAHK.cxx" />
+    <ClCompile Include="lexers\LexAHKL.cxx" />
     <ClCompile Include="lexers\LexAsm.cxx" />
     <ClCompile Include="lexers\LexAU3.cxx" />
     <ClCompile Include="lexers\LexAVS.cxx" />

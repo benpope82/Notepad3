@@ -24,9 +24,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lexers\LexAHK.cxx">
-      <Filter>lexers</Filter>
-    </ClCompile>
     <ClCompile Include="lexers\LexAsm.cxx">
       <Filter>lexers</Filter>
     </ClCompile>
@@ -260,6 +257,9 @@
     </ClCompile>
     <ClCompile Include="lexlib\DefaultLexer.cxx">
       <Filter>lexlib</Filter>
+    </ClCompile>
+    <ClCompile Include="lexers\LexAHKL.cxx">
+      <Filter>lexers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

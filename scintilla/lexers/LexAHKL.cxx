@@ -48,7 +48,8 @@ static const char *const ahklWordLists[] = {
             "User Defined 2",
              0 };
 
-class LexerAHK : public ILexer4 {
+class LexerAHKL : public ILexer4
+{
   CharacterSet valLabel;
   CharacterSet valHotkeyMod;
   CharacterSet valIdentifier;
@@ -70,97 +71,122 @@ class LexerAHK : public ILexer4 {
   CharacterSet EscSequence;
 
 public:
-  LexerAHK() :
-    valLabel(CharacterSet::setAlphaNum,"@#$_~!^&*()+[]\';./\\<>?|{}-=\""),
-    valHotkeyMod(CharacterSet::setDigits,"#!^+&<>*~$"),
-    valIdentifier(CharacterSet::setAlphaNum,"@#$_"),
-    valHotstringOpt(CharacterSet::setDigits,"*?BbCcEeIiKkOoPpRrSsZz"),
-    valDocComment(CharacterSet::setNone,"'`\""),
-    ExpOperator(CharacterSet::setNone,"+-*/!~&|^<>.:"),
-    SynOperator(CharacterSet::setNone,"+-*/!~&|^<>.:()[]?,{}"),
-    EscSequence(CharacterSet::setNone,",%`;nrbtvaf") {}
+  LexerAHKL() :
+    valLabel(CharacterSet::setAlphaNum, "@#$_~!^&*()+[]\';./\\<>?|{}-=\""),
+    valHotkeyMod(CharacterSet::setDigits, "#!^+&<>*~$"),
+    valIdentifier(CharacterSet::setAlphaNum, "@#$_"),
+    valHotstringOpt(CharacterSet::setDigits, "*?BbCcEeIiKkOoPpRrSsZz"),
+    valDocComment(CharacterSet::setNone, "'`\""),
+    ExpOperator(CharacterSet::setNone, "+-*/!~&|^<>.:"),
+    SynOperator(CharacterSet::setNone, "+-*/!~&|^<>.:()[]?,{}"),
+    EscSequence(CharacterSet::setNone, ",%`;nrbtvaf")
+  {}
 
-  virtual ~LexerAHK() {}
+  virtual ~LexerAHKL() {}
 
-  void SCI_METHOD Release() {
+  void SCI_METHOD Release()
+  {
     delete this;
   }
 
-  int SCI_METHOD Version() const {
+  int SCI_METHOD Version() const
+  {
     return dvRelease4;
   }
-  const char * SCI_METHOD PropertyNames() {
+  const char * SCI_METHOD PropertyNames()
+  {
     return "";
   }
-  int SCI_METHOD PropertyType(const char *name) {
+  int SCI_METHOD PropertyType(const char *name)
+  {
     return 0;
   }
-  const char * SCI_METHOD DescribeProperty(const char *name) {
+  const char * SCI_METHOD DescribeProperty(const char *name)
+  {
     return "";
   }
-  Sci_Position SCI_METHOD PropertySet(const char *key,const char *val) {
+  Sci_Position SCI_METHOD PropertySet(const char *key, const char *val)
+  {
     return 0;
   }
-  const char * SCI_METHOD DescribeWordListSets() {
+  const char * SCI_METHOD DescribeWordListSets()
+  {
     return 0;
   }
-  void * SCI_METHOD PrivateCall(int,void *) {
+  void * SCI_METHOD PrivateCall(int, void *)
+  {
     return 0;
   }
-  int SCI_METHOD LineEndTypesSupported() {
+  int SCI_METHOD LineEndTypesSupported()
+  {
     return 0;
   }
-  int SCI_METHOD AllocateSubStyles(int styleBase,int numberStyles) {
+  int SCI_METHOD AllocateSubStyles(int styleBase, int numberStyles)
+  {
     return 0;
   }
-  int SCI_METHOD SubStylesStart(int styleBase) {
+  int SCI_METHOD SubStylesStart(int styleBase)
+  {
     return 0;
   }
-  int SCI_METHOD SubStylesLength(int styleBase) {
+  int SCI_METHOD SubStylesLength(int styleBase)
+  {
     return 0;
   }
-  int SCI_METHOD StyleFromSubStyle(int subStyle) {
+  int SCI_METHOD StyleFromSubStyle(int subStyle)
+  {
     return 0;
   }
-  int SCI_METHOD PrimaryStyleFromStyle(int style) {
+  int SCI_METHOD PrimaryStyleFromStyle(int style)
+  {
     return 0;
   }
-  void SCI_METHOD FreeSubStyles() {
+  void SCI_METHOD FreeSubStyles()
+  {
     return;
   }
-  void SCI_METHOD SetIdentifiers(int style,const char *identifiers) {
+  void SCI_METHOD SetIdentifiers(int style, const char *identifiers)
+  {
     return;
   }
-  int SCI_METHOD DistanceToSecondaryStyles() {
+  int SCI_METHOD DistanceToSecondaryStyles()
+  {
     return 0;
   }
-  const char * SCI_METHOD GetSubStyleBases() {
+  const char * SCI_METHOD GetSubStyleBases()
+  {
     return "";
   }
-  int SCI_METHOD NamedStyles() {
+  int SCI_METHOD NamedStyles()
+  {
     return 0;
   }
-  const char * SCI_METHOD NameOfStyle(int style) {
+  const char * SCI_METHOD NameOfStyle(int style)
+  {
     return "";
   }
-  const char * SCI_METHOD TagsOfStyle(int style) {
+  const char * SCI_METHOD TagsOfStyle(int style)
+  {
     return "";
   }
-  const char * SCI_METHOD DescriptionOfStyle(int style) {
+  const char * SCI_METHOD DescriptionOfStyle(int style)
+  {
     return "";
   }
 
-  static ILexer4 *LexerFactory() {
-    return new LexerAHK();
+  static ILexer4 *LexerFactory()
+  {
+    return new LexerAHKL();
   }
 
-  Sci_Position SCI_METHOD WordListSet(int n,const char *wl);
-  void Lex(Sci_PositionU startPos,Sci_Position lengthDoc,int initStyle,IDocument *pAccess);
-  void Fold(Sci_PositionU startPos,Sci_Position lengthDoc,int initStyle,IDocument *pAccess);
+  Sci_Position SCI_METHOD WordListSet(int n, const char *wl);
+  void Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle, IDocument *pAccess);
+  void Fold(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle, IDocument *pAccess);
 };
 
 
-Sci_Position SCI_METHOD LexerAHK::WordListSet(int n,const char *wl) {
+Sci_Position SCI_METHOD LexerAHKL::WordListSet(int n, const char *wl)
+{
   WordList *wordListN = 0;
   switch (n) {
 
@@ -214,14 +240,15 @@ Sci_Position SCI_METHOD LexerAHK::WordListSet(int n,const char *wl) {
   return firstModification;
 }
 
-void SCI_METHOD LexerAHK::Lex(Sci_PositionU startPos,Sci_Position lengthDoc,int initStyle,IDocument *pAccess) {
+void SCI_METHOD LexerAHKL::Lex(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle, IDocument *pAccess)
+{
   LexAccessor styler(pAccess);
-  StyleContext sc(startPos,lengthDoc,initStyle,styler);
+  StyleContext sc(startPos, lengthDoc, initStyle, styler);
 
   // non-lexical states
   int expLevel = 0;
-  int mainState = SCE_AHK_NEUTRAL;								// Used on some special cases like objects where SCE_AHK_NEUTRAL is set but
-                          // we basically come from SCE_AHK_OBJECT and we need to be aware of it
+  int mainState = SCE_AHKL_NEUTRAL;								// Used on some special cases like objects where SCE_AHKL_NEUTRAL is set but
+                          // we basically come from SCE_AHKL_OBJECT and we need to be aware of it
   bool OnlySpaces;
   bool validLabel;
   bool validFunction;
@@ -234,8 +261,9 @@ void SCI_METHOD LexerAHK::Lex(Sci_PositionU startPos,Sci_Position lengthDoc,int 
   bool inDocComment;
   bool inExpression;
 
-  bool inStringBlk = (sc.state == SCE_AHK_STRINGOPTS || sc.state == SCE_AHK_STRINGBLOCK || sc.state == SCE_AHK_STRINGCOMMENT);
-  bool inCommentBlk = (sc.state == SCE_AHK_COMMENTDOC || sc.state == SCE_AHK_COMMENTBLOCK);
+
+  bool inStringBlk = (sc.state == SCE_AHKL_STRINGOPTS || sc.state == SCE_AHKL_STRINGBLOCK || sc.state == SCE_AHKL_STRINGCOMMENT);
+  bool inCommentBlk = (sc.state == SCE_AHKL_COMMENTDOC || sc.state == SCE_AHKL_COMMENTBLOCK);
 
   for (; sc.More(); sc.Forward()) {
 
@@ -244,77 +272,78 @@ void SCI_METHOD LexerAHK::Lex(Sci_PositionU startPos,Sci_Position lengthDoc,int 
     if (sc.atLineStart) {
 
       expLevel = 0;
-      mainState = SCE_AHK_NEUTRAL;
+      mainState = SCE_AHKL_NEUTRAL;
 
-      OnlySpaces = true,validLabel = true,validFunction = true,inKey = false,inString = false;
-      inDocComment = false,inCommand = false,inHotstring = false,inExpression = false,inExpString = false;
+      OnlySpaces = true, validLabel = true, validFunction = true, inKey = false, inString = false;
+      inDocComment = false, inCommand = false, inHotstring = false, inExpression = false, inExpString = false;
 
       if (!inStringBlk && !inCommentBlk)
-        sc.SetState(SCE_AHK_NEUTRAL);
-
+        sc.SetState(SCE_AHKL_NEUTRAL);
     }
 
     // Comments are allowed almost everywhere
     if (!inStringBlk && !inCommentBlk && (OnlySpaces || isspace(sc.chPrev)) && sc.ch == ';')
-      sc.SetState(SCE_AHK_COMMENTLINE);
+      sc.SetState(SCE_AHKL_COMMENTLINE);
 
     // Exit Current State
     switch (sc.state) {
 
-    case SCE_AHK_IDENTIFIER: {
+    case SCE_AHKL_IDENTIFIER:
+      {
         if (sc.atLineEnd || !valIdentifier.Contains(sc.ch)) {			// Check for match after typing whole words or punctuation signs
 
           char identifier[256];
-          sc.GetCurrentLowered(identifier,sizeof(identifier));
+          sc.GetCurrentLowered(identifier, sizeof(identifier));
 
           if (!sc.Match('('))
             validFunction = false;
 
           if (directives.InList(identifier)) {
 
-            sc.ChangeState(SCE_AHK_DIRECTIVE);
+            sc.ChangeState(SCE_AHKL_DIRECTIVE);
 
           }
-          else if (!inExpression && !inCommand && !inKey && sc.ch != '(' && commands.InList(identifier)) {
+          else if (!(inExpression || inCommand) && !inKey && sc.ch != '(' && commands.InList(identifier)) {
 
             inCommand = true;
-            sc.ChangeState(SCE_AHK_COMMAND);
+
+            sc.ChangeState(SCE_AHKL_COMMAND);
 
           }
           else if (inCommand && parameters.InList(identifier)) {
 
-            sc.ChangeState(SCE_AHK_PARAM);
+            sc.ChangeState(SCE_AHKL_PARAM);
 
           }
           else if (!inKey && flow.InList(identifier)) {			// avoid conflicts with key identifiers (e.g. pause)
 
-            sc.ChangeState(SCE_AHK_CONTROLFLOW);
+            sc.ChangeState(SCE_AHKL_CONTROLFLOW);
 
           }
           else if (sc.ch == '(' && functions.InList(identifier)) {
 
             inCommand = true;
-            sc.ChangeState(SCE_AHK_BUILTINFUNCTION);
+            sc.ChangeState(SCE_AHKL_BUILTINFUNCTION);
 
           }
           else if (variables.InList(identifier)) {
 
-            sc.ChangeState(SCE_AHK_BUILTINVAR);
+            sc.ChangeState(SCE_AHKL_BUILTINVAR);
 
           }
           else if (inKey && keys.InList(identifier)) {
 
-            sc.ChangeState(SCE_AHK_KEY);
+            sc.ChangeState(SCE_AHKL_KEY);
 
           }
           else if (user1.InList(identifier)) {
 
-            sc.ChangeState(SCE_AHK_USERDEFINED1);
+            sc.ChangeState(SCE_AHKL_USERDEFINED1);
 
           }
           else if (user2.InList(identifier)) {
 
-            sc.ChangeState(SCE_AHK_USERDEFINED2);
+            sc.ChangeState(SCE_AHKL_USERDEFINED2);
 
           }
           else if (sc.ch == '{') {
@@ -322,28 +351,28 @@ void SCI_METHOD LexerAHK::Lex(Sci_PositionU startPos,Sci_Position lengthDoc,int 
             inKey = true; inCommand = false;
 
           }
-          else if (inExpression && !(sc.ch == '(' || sc.ch == '[' || sc.ch == '.')) {	// Dont lex as a variable if it is a function or an array
+          else if ((inExpression || inCommand) && !(sc.ch == '(' || sc.ch == '[' || sc.ch == '.')) {	// Don't lex as a variable if it is a function or an array
 
-            sc.ChangeState(SCE_AHK_VARREF);
+            sc.ChangeState(SCE_AHKL_VAR);
 
           }
           else if (!inExpression && !ExpOperator.Contains(sc.chPrev) && sc.ch == '=') {
 
             inString = true;
-            sc.ForwardSetState(SCE_AHK_STRING);
+            sc.ForwardSetState(SCE_AHKL_STRING);
 
             continue;
 
           }
           else if (!inCommand && ExpOperator.Contains(sc.ch) && sc.chNext == '=') {
 
-            sc.SetState(SCE_AHK_ERROR);
+            sc.SetState(SCE_AHKL_ERROR);
 
           }
           else if (validFunction && sc.ch == '(') {
 
-            sc.ChangeState(SCE_AHK_USERFUNCTION);
-            sc.SetState(SCE_AHK_NEUTRAL);
+            sc.ChangeState(SCE_AHKL_USERFUNCTION);
+            sc.SetState(SCE_AHKL_NEUTRAL);
 
           }
           else if (valLabel.Contains(sc.ch) && !(sc.ch == '(' || sc.ch == '[' || sc.ch == '.')) {
@@ -355,91 +384,96 @@ void SCI_METHOD LexerAHK::Lex(Sci_PositionU startPos,Sci_Position lengthDoc,int 
 
             if (sc.ch == '.' && valIdentifier.Contains(sc.chNext)) {
 
-              mainState = SCE_AHK_OBJECT;
+              mainState = SCE_AHKL_OBJECT;
 
-              sc.ChangeState(SCE_AHK_OBJECT);
-              sc.SetState(SCE_AHK_NEUTRAL);
+              sc.ChangeState(SCE_AHKL_OBJECT);
+              sc.SetState(SCE_AHKL_NEUTRAL);
 
             }
             else if (sc.ch == '.' && !valIdentifier.Contains(sc.chNext)) {
 
-              sc.ChangeState(SCE_AHK_ERROR);
-              sc.SetState(SCE_AHK_ERROR);
+              sc.ChangeState(SCE_AHKL_ERROR);
+              sc.SetState(SCE_AHKL_ERROR);
 
               break;
 
             }
             else if (sc.ch == '[') {
 
-              sc.ChangeState(SCE_AHK_OBJECT);
-              sc.SetState(SCE_AHK_NEUTRAL);
+              sc.ChangeState(SCE_AHKL_OBJECT);
+              sc.SetState(SCE_AHKL_NEUTRAL);
 
             }
 
           }
-          else if (mainState == SCE_AHK_OBJECT) {			// Special object case
+          else if (mainState == SCE_AHKL_OBJECT) {			// Special object case
 
-            mainState = SCE_AHK_NEUTRAL;
+            mainState = SCE_AHKL_NEUTRAL;
 
             if (sc.ch == '(') {
 
-              sc.ChangeState(SCE_AHK_USERFUNCTION);
-              sc.SetState(SCE_AHK_NEUTRAL);
+              sc.ChangeState(SCE_AHKL_USERFUNCTION);
+              sc.SetState(SCE_AHKL_NEUTRAL);
 
             }
             else {
 
-              sc.ChangeState(SCE_AHK_VAR);
-              sc.SetState(SCE_AHK_NEUTRAL);
+              if (variables.InList(identifier)) {
+                sc.ChangeState(SCE_AHKL_BUILTINVAR);
+              }
+              else {
+                sc.ChangeState(SCE_AHKL_VAR);
+              }
+              sc.SetState(SCE_AHKL_NEUTRAL);
 
             }
 
           }
           else if (!validLabel && sc.ch == ':') {
 
-            sc.ChangeState(SCE_AHK_IDENTIFIER);
+            sc.ChangeState(SCE_AHKL_IDENTIFIER);
 
           }
           else if (sc.ch == ':' && sc.chNext != ':' && sc.chNext != '/' && sc.chNext != '\\') {
 
-            sc.ChangeState(SCE_AHK_LABEL);
+            sc.ChangeState(SCE_AHKL_LABEL);
 
             if (sc.chNext != ' ' && sc.chNext != '\r' && sc.chNext != '\n')
-              sc.ForwardSetState(SCE_AHK_ERROR);
+              sc.ForwardSetState(SCE_AHKL_ERROR);
 
             break;
 
           }
           else if (!inHotstring && sc.ch == ':' && sc.chNext == ':') {
 
-            sc.ChangeState(SCE_AHK_HOTKEY);
+            sc.ChangeState(SCE_AHKL_HOTKEY);
             sc.Forward(2);
-            sc.SetState(SCE_AHK_NEUTRAL);
+            sc.SetState(SCE_AHKL_NEUTRAL);
 
             break;
 
           }
 
           validLabel = false;
-          sc.SetState(SCE_AHK_NEUTRAL);
+          sc.SetState(SCE_AHKL_NEUTRAL);
 
         }
         else if ((sc.chPrev == 'x' || sc.chPrev == 'y' || sc.chPrev == 'w' || sc.chPrev == 'h')
-          && inCommand && isdigit(sc.ch)) {				// Special number cases when entering sizes
+                 && inCommand && isdigit(sc.ch)) {				// Special number cases when entering sizes
 
-          sc.SetState(SCE_AHK_DECNUMBER);
-
+          sc.SetState(SCE_AHKL_DECNUMBER);
         }
 
-        break;
       }
+      break;
 
-    case SCE_AHK_COMMENTDOC: {
-        if (OnlySpaces && sc.Match('*','/')) {
+    case SCE_AHKL_COMMENTDOC:
+      {
+        if (OnlySpaces && sc.Match('*', '/')) {
 
           inCommentBlk = false;
           sc.Forward(2);
-          sc.SetState(SCE_AHK_NEUTRAL);
+          sc.SetState(SCE_AHKL_NEUTRAL);
 
         }
         else if ((OnlySpaces || isspace(sc.chPrev)) &&
@@ -448,59 +482,64 @@ void SCI_METHOD LexerAHK::Lex(Sci_PositionU startPos,Sci_Position lengthDoc,int 
           if (valDocComment.Contains(sc.ch))
             inDocComment = true;
 
-          sc.SetState(SCE_AHK_COMMENTKEYWORD);
+          sc.SetState(SCE_AHKL_COMMENTKEYWORD);
 
         }
-        break;
       }
+      break;
 
-    case SCE_AHK_COMMENTKEYWORD: {
+    case SCE_AHKL_COMMENTKEYWORD:
+      {
         if (sc.atLineStart || (!inDocComment && sc.ch == ':')
-          || (inDocComment && valDocComment.Contains(sc.ch)))
-          sc.ForwardSetState(SCE_AHK_COMMENTDOC);
-        break;
+            || (inDocComment && valDocComment.Contains(sc.ch)))
+          sc.ForwardSetState(SCE_AHKL_COMMENTDOC);
       }
+      break;
 
-    case SCE_AHK_COMMENTBLOCK: {
-        if (OnlySpaces && sc.Match('*','/')) {
+    case SCE_AHKL_COMMENTBLOCK:
+      {
+        if (OnlySpaces && sc.Match('*', '/')) {
 
           inCommentBlk = false;
           sc.Forward(2);
-          sc.SetState(SCE_AHK_NEUTRAL);
+          sc.SetState(SCE_AHKL_NEUTRAL);
 
         }
-        break;
       }
+      break;
 
-    case SCE_AHK_HEXNUMBER: {
+    case SCE_AHKL_HEXNUMBER:
+      {
         if (isspace(sc.ch) || SynOperator.Contains(sc.ch))
-          sc.SetState(SCE_AHK_NEUTRAL);
+          sc.SetState(SCE_AHKL_NEUTRAL);
 
         else if (!isxdigit(sc.ch))
-          sc.ChangeState(SCE_AHK_IDENTIFIER);
-        break;
+          sc.ChangeState(SCE_AHKL_IDENTIFIER);
       }
+      break;
 
-    case SCE_AHK_DECNUMBER: {
+    case SCE_AHKL_DECNUMBER:
+      {
         if (!isdigit(sc.ch)) {
 
           if (sc.ch == 'x' || sc.ch == 'X')
-            sc.ChangeState(SCE_AHK_HEXNUMBER);
+            sc.ChangeState(SCE_AHKL_HEXNUMBER);
 
           else if (isalpha(sc.ch))
-            sc.ChangeState(SCE_AHK_IDENTIFIER);
+            sc.ChangeState(SCE_AHKL_IDENTIFIER);
 
           else
-            sc.SetState(SCE_AHK_NEUTRAL);
+            sc.SetState(SCE_AHKL_NEUTRAL);
 
         }
-        break;
       }
+      break;
 
-    case SCE_AHK_STRING: {
+    case SCE_AHKL_STRING:
+      {
         if (inExpression && sc.atLineEnd) {
 
-          sc.ChangeState(SCE_AHK_ERROR);
+          sc.ChangeState(SCE_AHKL_ERROR);
 
         }
         else if (inExpression && sc.ch == '"') {
@@ -513,193 +552,189 @@ void SCI_METHOD LexerAHK::Lex(Sci_PositionU startPos,Sci_Position lengthDoc,int 
           else {
 
             inExpString = false;
-            sc.ForwardSetState(SCE_AHK_NEUTRAL);
+            sc.ForwardSetState(SCE_AHKL_NEUTRAL);
 
           }
 
         }
-        else if (!inExpression && sc.ch == '%' && valIdentifier.Contains(sc.chNext)) {
+        else if (!(inExpression || inCommand) && sc.ch == '%' && valIdentifier.Contains(sc.chNext)) {
 
-          sc.SetState(SCE_AHK_NEUTRAL);
-          sc.ForwardSetState(SCE_AHK_VAR);
+          sc.SetState(SCE_AHKL_NEUTRAL);
+          sc.ForwardSetState(SCE_AHKL_VAR);
         }
-        break;
       }
+      break;
 
-    case SCE_AHK_STRINGOPTS: {
+    case SCE_AHKL_STRINGOPTS:
+      {
         if (sc.atLineStart)
-          sc.SetState(SCE_AHK_STRINGBLOCK);
-        break;
+          sc.SetState(SCE_AHKL_STRINGBLOCK);
       }
+      break;
 
-    case SCE_AHK_STRINGBLOCK: {
+    case SCE_AHKL_STRINGBLOCK:
+      {
         if (!inExpression && OnlySpaces && sc.ch == ')') {
 
           inStringBlk = false;
-          sc.SetState(SCE_AHK_NEUTRAL);
+          sc.SetState(SCE_AHKL_NEUTRAL);
 
           if (sc.chNext != ',')
-            sc.ForwardSetState(SCE_AHK_ERROR);
+            sc.ForwardSetState(SCE_AHKL_ERROR);
           else
             inCommand = true;
         }
 
         // if ((OnlySpaces || isspace(sc.chPrev)) && sc.Match(';')) {
 
-          // sc.SetState(SCE_AHK_STRINGCOMMENT);
+          // sc.SetState(SCE_AHKL_STRINGCOMMENT);
 
         // }
-        break;
       }
+      break;
 
-    case SCE_AHK_ESCAPESEQ: {
-        sc.ForwardSetState(SCE_AHK_NEUTRAL);
-        break;
+    case SCE_AHKL_ESCAPESEQ:
+      {
+        sc.ForwardSetState(SCE_AHKL_NEUTRAL);
       }
+      break;
 
-    case SCE_AHK_VAR: {
+
+    case SCE_AHKL_VAR:
+    case SCE_AHKL_VARREF:
+    case SCE_AHKL_BUILTINVAR:
+      {
         if (!valIdentifier.Contains(sc.ch) && sc.ch != '%') {
 
-          sc.ChangeState(SCE_AHK_ERROR);
+          sc.ChangeState(SCE_AHKL_ERROR);
 
         }
         else if (sc.ch == '%') {
 
-          sc.SetState(SCE_AHK_NEUTRAL);
-          sc.ForwardSetState(SCE_AHK_NEUTRAL);
+          sc.SetState(SCE_AHKL_NEUTRAL);
 
           if (inString)
-            sc.ForwardSetState(SCE_AHK_STRING);
+            sc.ForwardSetState(SCE_AHKL_STRING);
+          else
+            sc.ForwardSetState(SCE_AHKL_NEUTRAL);
 
-        }
-        break;
-      }
-
-    case SCE_AHK_VARREF: {
-        if (!valIdentifier.Contains(sc.ch) && sc.ch != '%') {
-
-          sc.ChangeState(SCE_AHK_ERROR);
-
-        }
-        else if (sc.ch == '%') {
-
-          sc.SetState(SCE_AHK_NEUTRAL);
           continue;
 
         }
-
-        break;
       }
+      break;
 
-    case SCE_AHK_HOTSTRINGOPT: {
+    case SCE_AHKL_HOTSTRINGOPT:
+      {
         if (sc.ch == ':') {
 
-          sc.ForwardSetState(SCE_AHK_HOTSTRING);
+          sc.ForwardSetState(SCE_AHKL_HOTSTRING);
 
         }
         else if (!valHotstringOpt.Contains(sc.ch)) {
 
-          sc.SetState(SCE_AHK_ERROR);
+          sc.SetState(SCE_AHKL_ERROR);
 
         }
-        break;
       }
+      break;
 
-    case SCE_AHK_HOTSTRING: {
-        if (sc.Match(':',':')) {
+    case SCE_AHKL_HOTSTRING:
+      {
+        if (sc.Match(':', ':')) {
 
-          sc.SetState(SCE_AHK_HOTSTRINGOPT);
+          sc.SetState(SCE_AHKL_HOTSTRINGOPT);
           sc.Forward(2);
-          sc.SetState(SCE_AHK_STRING);
+          sc.SetState(SCE_AHKL_STRING);
 
         }
-        break;
       }
+      break;
 
-    case SCE_AHK_ERROR: {
+    case SCE_AHKL_ERROR:
+      {
         if (inExpression && inExpString && sc.ch == '"') {
 
-          sc.ChangeState(SCE_AHK_STRING);
+          sc.ChangeState(SCE_AHKL_STRING);
 
         }
         else if (sc.ch == '%') {
 
-          sc.SetState(SCE_AHK_NEUTRAL);
+          sc.SetState(SCE_AHKL_NEUTRAL);
 
         }
         else if (inHotstring && valHotstringOpt.Contains(sc.ch)) {
 
-          sc.SetState(SCE_AHK_HOTSTRINGOPT);
+          sc.SetState(SCE_AHKL_HOTSTRINGOPT);
 
         }
         else if (inHotstring && sc.ch == ':') {
 
-          sc.SetState(SCE_AHK_HOTSTRINGOPT);
-          sc.ForwardSetState(SCE_AHK_HOTSTRING);
+          sc.SetState(SCE_AHKL_HOTSTRINGOPT);
+          sc.ForwardSetState(SCE_AHKL_HOTSTRING);
 
         }
-        break;
       }
+      break;
 
     }
 
     // Enter New State
-    if (sc.state == SCE_AHK_NEUTRAL) {
+    if (sc.state == SCE_AHKL_NEUTRAL) {
 
       // Handle Expressions
       if ((OnlySpaces && sc.ch == '.') || sc.Match(" % ") || (sc.ch == '(')
-        || ((valIdentifier.Contains(sc.chPrev) || isspace(sc.chPrev)) && sc.ch == '?')
-        || ((valIdentifier.Contains(sc.chPrev) || isspace(sc.chPrev)) && ExpOperator.Contains(sc.ch) && sc.chNext == '=')
-        || (valIdentifier.Contains(sc.chPrev) && sc.ch == '[')) {
+          || ((valIdentifier.Contains(sc.chPrev) || isspace(sc.chPrev)) && sc.ch == '?')
+          || ((valIdentifier.Contains(sc.chPrev) || isspace(sc.chPrev)) && ExpOperator.Contains(sc.ch) && sc.chNext == '=')
+          || (valIdentifier.Contains(sc.chPrev) && sc.ch == '[')) {
 
         expLevel += 1;
         inExpression = true;
 
         if (sc.Match(" % "))
           inCommand = false;
-
       }
       else if (sc.ch == ']' || sc.ch == ')') {
 
-        expLevel -= 1,inCommand = false;
+        expLevel -= 1, inCommand = false;
 
         if (expLevel == 0)
           inExpression = false;
-
       }
 
       // Handle Command continuation section
-      if ((OnlySpaces && sc.ch == ',') || (OnlySpaces && sc.Match(')',',')))
+      if ((OnlySpaces && sc.ch == ',') || (OnlySpaces && sc.Match(')', ',')))
         inCommand = true;
 
+
       if ((!sc.atLineEnd && valIdentifier.Contains(sc.ch))
-        || (!inExpression && valHotkeyMod.Contains(sc.ch) && sc.chNext != '=')) {
+          || (!inExpression && valHotkeyMod.Contains(sc.ch) && sc.chNext != '=')) {
 
         if (valIdentifier.Contains(sc.ch))
           validFunction = true;
 
         if (isdigit(sc.ch))
-          sc.SetState(SCE_AHK_DECNUMBER);
+          sc.SetState(SCE_AHKL_DECNUMBER);
 
         else if (inCommand && sc.ch == '+')
           continue;
 
         else
-          sc.SetState(SCE_AHK_IDENTIFIER);
+          sc.SetState(SCE_AHKL_IDENTIFIER);
 
       }
-      else if (OnlySpaces && sc.Match('/','*')) {
+      else if (OnlySpaces && sc.Match('/', '*')) {
 
         inCommentBlk = true;
-        sc.ChangeState(SCE_AHK_COMMENTBLOCK);
+        sc.ChangeState(SCE_AHKL_COMMENTBLOCK);
 
         if (sc.Match("/**") && !sc.Match("/***"))
-          sc.ChangeState(SCE_AHK_COMMENTDOC);
+          sc.ChangeState(SCE_AHKL_COMMENTDOC);
 
       }
       else if (sc.ch == ']') {
 
-        mainState = SCE_AHK_NEUTRAL;						// Reset object state
+        mainState = SCE_AHKL_NEUTRAL;						// Reset object state
 
       }
       else if (sc.ch == ')') {
@@ -719,41 +754,41 @@ void SCI_METHOD LexerAHK::Lex(Sci_PositionU startPos,Sci_Position lengthDoc,int 
       }
       else if (sc.ch == '`' && EscSequence.Contains(sc.chNext)) {
 
-        sc.SetState(SCE_AHK_ESCAPESEQ);
+        sc.SetState(SCE_AHKL_ESCAPESEQ);
 
       }
       else if (inExpression && sc.ch == '"') {
 
         inExpString = true; inString = false;
-        sc.SetState(SCE_AHK_STRING);
+        sc.SetState(SCE_AHKL_STRING);
 
       }
       else if (!inExpression && !ExpOperator.Contains(sc.chPrev) && sc.ch == '=') {
 
         inString = true;
-        sc.ForwardSetState(SCE_AHK_STRING);
+        sc.ForwardSetState(SCE_AHKL_STRING);
 
       }
       else if (!inExpression && OnlySpaces && sc.ch == '(') {
 
         inStringBlk = true;
-        sc.ForwardSetState(SCE_AHK_STRINGOPTS);
+        sc.ForwardSetState(SCE_AHKL_STRINGOPTS);
 
       }
-      else if (!inExpression && sc.ch == '%' && valIdentifier.Contains(sc.chNext)) {
+      else if (!(inExpression || inCommand) && sc.ch == '%' && valIdentifier.Contains(sc.chNext)) {
 
-        sc.ForwardSetState(SCE_AHK_VAR);
+        sc.ForwardSetState(SCE_AHKL_VAR);
 
       }
-      else if (inExpression && sc.ch == '%' && valIdentifier.Contains(sc.chNext)) {
+      else if ((inExpression || inCommand) && sc.ch == '%' && valIdentifier.Contains(sc.chNext)) {
 
-        sc.ForwardSetState(SCE_AHK_VARREF);
+          sc.ForwardSetState(SCE_AHKL_VARREF);
 
       }
       else if (OnlySpaces && sc.ch == ':') {
 
         inHotstring = true;
-        sc.SetState(SCE_AHK_HOTSTRINGOPT);
+        sc.SetState(SCE_AHKL_HOTSTRINGOPT);
 
       }
 
@@ -767,7 +802,8 @@ void SCI_METHOD LexerAHK::Lex(Sci_PositionU startPos,Sci_Position lengthDoc,int 
   sc.Complete();
 }
 
-void SCI_METHOD LexerAHK::Fold(Sci_PositionU startPos,Sci_Position lengthDoc,int initStyle,IDocument *pAccess) {
+void SCI_METHOD LexerAHKL::Fold(Sci_PositionU startPos, Sci_Position lengthDoc, int initStyle, IDocument *pAccess)
+{
   LexAccessor styler(pAccess);
 
   int visibleChars = 0;
@@ -783,6 +819,7 @@ void SCI_METHOD LexerAHK::Fold(Sci_PositionU startPos,Sci_Position lengthDoc,int
 
   if (lineCurrent > 0)
     levelCurrent = styler.LevelAt(lineCurrent - 1) >> 16;
+
   unsigned int lineStartNext = styler.LineStart(lineCurrent + 1);
   int levelMinCurrent = levelCurrent;
   int levelNext = levelCurrent;
@@ -799,26 +836,26 @@ void SCI_METHOD LexerAHK::Fold(Sci_PositionU startPos,Sci_Position lengthDoc,int
     styleNext = styler.StyleAt(i + 1);
 
     if ((OnlySpaces && ch == '/' && chNext == '*'))
-      levelNext++;
+      ++levelNext;
 
     else if ((OnlySpaces && ch == '*' && chNext == '/'))
-      levelNext--;
+      --levelNext;
 
-    if (style == SCE_AHK_NEUTRAL) {
+    if (style == SCE_AHKL_NEUTRAL) {
 
-      if ((OnlySpaces && ch == '(') || ch == '{') {
+      if ((ch == '(') || (ch == '{')) {
 
         // Measure the minimum before a '{' to allow
         // folding on "} else {"
         if (levelMinCurrent > levelNext)
           levelMinCurrent = levelNext;
 
-        levelNext++;
+        ++levelNext;
 
       }
-      else if ((OnlySpaces && ch == ')') || ch == '}') {
+      else if ((ch == ')') || (ch == '}')) {
 
-        levelNext--;
+        --levelNext;
 
       }
 
@@ -836,7 +873,7 @@ void SCI_METHOD LexerAHK::Fold(Sci_PositionU startPos,Sci_Position lengthDoc,int
         lev |= SC_FOLDLEVELHEADERFLAG;
 
       if (lev != styler.LevelAt(lineCurrent))
-        styler.SetLevel(lineCurrent,lev);
+        styler.SetLevel(lineCurrent, lev);
 
       lineCurrent++;
       lineStartNext = styler.LineStart(lineCurrent + 1);
@@ -844,7 +881,7 @@ void SCI_METHOD LexerAHK::Fold(Sci_PositionU startPos,Sci_Position lengthDoc,int
       levelMinCurrent = levelCurrent;
 
       if (atEOL && (i == static_cast<unsigned int>(styler.Length() - 1))) 		// There is an empty line at end of file so give it same level and empty
-        styler.SetLevel(lineCurrent,(levelCurrent | levelCurrent << 16) | SC_FOLDLEVELWHITEFLAG);
+        styler.SetLevel(lineCurrent, (levelCurrent | levelCurrent << 16) | SC_FOLDLEVELWHITEFLAG);
 
       visibleChars = 0;
       OnlySpaces = true;
@@ -859,4 +896,4 @@ void SCI_METHOD LexerAHK::Fold(Sci_PositionU startPos,Sci_Position lengthDoc,int
 
 }
 
-LexerModule lmAHK(SCLEX_AHK,LexerAHK::LexerFactory,"ahk",ahklWordLists);
+LexerModule lmAHKL(SCLEX_AHKL, LexerAHKL::LexerFactory, "ahk", ahklWordLists);
