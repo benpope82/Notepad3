@@ -3,6 +3,98 @@ Rizonesoft Notepad3 CHANGES
 ==================================================
 
 --------------------------------------------------
+Version 2.17.1023.632 (16 October 2017)
+--------------------------------------------------
+~ Fix: pasting clipboard content into selection box should replace text and 
+  cancel selection then (in case of swapping clipboard, the selection is preserved).
+~ Changed buffers for operating edit box in customize schemes.
+~ Implemented Feature Request #51 (buffer size of file extension edit box).
+~ First prottotype of VirtualSpace RectangularSelection by default (very old 
+  behavior can be turned on by [Settings2] DenyVirtualSpaceAccess=1).
+~ Added switch ([Settings2] UseOldStyleBraceMatching) to preserve old style 
+  brace matching behavior.
+~ Applied patch from Neil Hodgson (Master of Scintilla Lib - respond to 
+  scintilla lib issue report #1976).
+~ Fixed .ini paths for np3portableapps.
+~ Restore wrongly discarded np3portableapps .ini files for NP3Portable, 
+  redirecting .ini reading to correct path.
+~ Documentation: Minor changes to Notepad3.txt.
+~ Documentation: doc/Notepad3.txt - add description of [Section2] .ini settings 
+  (mostly taken from orig. Notepad2 FAQs).
+~ Remove settings for "Favorites" directory -> NP3 uses then users system 
+  default folder (%USERPROFILE%\Favorites).
+~ Default to modern displays settings, using Scintilla's new technology 
+  : SciDirectWriteTech=1, SciFontQuality=3
+~ Settings [Section2] (cannot be set via GUI) add all possible names and 
+  default values, if applicable.
+~ License.txt: switch to UTF-8 encoding.
+~ Feature: Show warning before loading file with unknown (custom schemes) file 
+  name extension.
+~ Add code snippet (activation only prepare for future extensions).
+~ Fix: Crash in Favorites management.
+~ Small code refactoring (replacing deprecated methods).
+
+--------------------------------------------------
+Version 2.17.1016.610 (16 October 2017)
+--------------------------------------------------
+~ File History Dlg: rename button "Remove" -> "Discard" 
+  (discard selected item from file history list).
+~ Added remove button for list items.
+~ Checkbox for "preserve caret position" settings.
+~ Removed unnecessary build artifacts from np3portable.
+~ Minor bugfixes for session feature 
+  (file history: remember caret pos and encoding).
+
+--------------------------------------------------
+Version 2 Build 605 (15 October 2017)
+--------------------------------------------------
+~ Fix: Crash on accessing UndoRedo structure while NP3 instance has 
+  not been initialized completely (.LOG file opening bug).
+
+--------------------------------------------------
+Version 2 Build 600 (15 October 2017)
+--------------------------------------------------
+~ Fix: Virtual space access: column indicator.
+~ Fix: Customize Schemes... Font... selection: bold/italic now detected 
+  (bold: if selection >= FW_SEMIBOLD)
+
+--------------------------------------------------
+Version 2 Build 583 (11 October 2017)
+--------------------------------------------------
+~ Fix: syntax error on exit script.
+~ Cleanup AHK testing script, add test artifacts.
+~ Fix: Try to retrieve correct file version for Notepad3Portable creator.
+~ Fix: StatusBar Col display is not correct in case of Virtual Space Access.
+~ Generalized internal multi-byte codepage definitions (code cleanup).
+~ AHK test script for NP3 GUI tests.
+~ Fix: locale / language independant version patching batch for Notepad3Portable
+~ Fix: version patching for Notepad3 PortableApps build batch.
+~ Fix: Recode to ANSI (in case of Chinese ANSI code-page)
+
+--------------------------------------------------
+Version 2 Build 568 (8 October 2017)
+--------------------------------------------------
+~ Prettier Browse Icon.
+~ Fix: Reverting "reload as UTF-8 not work bugfix".
+~ Fix: Texture glitch on "Browse" button.
+~ Updated the Run Dialog icon.
+~ Fix: Binary directory to build portable app.
+~ Code comment for completeness.
+~ Fix: In-text encoding (convert encoding).
+~ Fix: minor StatusBar string corrections.
+~ StatusBar information enhancements.
+~ Fix: Support pasting position at virtual space.
+~ Fix: Move caret to convenient position after pasting clipboard 
+  (no current selection).
+~ Fix: Virtual space navigation and rectangular selection (minor issues) 
+  (allow "Virtual Space Rectangular Selection" 
+  also allows moving Caret into virtual space (beyond line end))
+~ Fix: Copy/Cut & Paste of current line (in case of no selection - 
+  Visual Studio behavior - using SCI's MSDEVLineSelect).
+~ Enhanced clipboard recoding detection.
+~ Fix: Bug in code-page related text conversion.
+
+--------------------------------------------------
 Version 2 Build 548 (3 October 2017)
 --------------------------------------------------
 ~ Fix: Made corrections to build 505 change log (spelling, grammar, etc).

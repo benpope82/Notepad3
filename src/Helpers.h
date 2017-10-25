@@ -33,26 +33,38 @@
 extern WCHAR szIniFile[MAX_PATH];
 
 #define IniGetString(lpSection,lpName,lpDefault,lpReturnedStr,nSize) \
-  GetPrivateProfileString(lpSection,lpName,lpDefault,lpReturnedStr,nSize,szIniFile)
+  GetPrivateProfileString(lpSection,lpName,(lpDefault),(lpReturnedStr),(nSize),szIniFile)
 #define IniGetInt(lpSection,lpName,nDefault) \
-  GetPrivateProfileInt(lpSection,lpName,nDefault,szIniFile)
+  GetPrivateProfileInt(lpSection,lpName,(nDefault),szIniFile)
+#define IniGetBool(lpSection,lpName,nDefault) \
+  (GetPrivateProfileInt(lpSection,lpName,(int)(nDefault),szIniFile) ? TRUE : FALSE)
 #define IniSetString(lpSection,lpName,lpString) \
-  WritePrivateProfileString(lpSection,lpName,lpString,szIniFile)
+  WritePrivateProfileString(lpSection,lpName,(lpString),szIniFile)
 #define IniDeleteSection(lpSection) \
   WritePrivateProfileSection(lpSection,NULL,szIniFile)
-__inline BOOL IniSetInt(LPCWSTR lpSection,LPCWSTR lpName,int i) {
-  WCHAR tch[32]={L'\0'}; StringCchPrintf(tch,COUNTOF(tch),L"%i",i); return IniSetString(lpSection,lpName,tch);
+__inline BOOL IniSetInt(LPCWSTR lpSection, LPCWSTR lpName, int i)
+{
+  WCHAR tch[32] = { L'\0' }; StringCchPrintf(tch, COUNTOF(tch), L"%i", i); return IniSetString(lpSection, lpName, tch);
 }
+#define IniSetBool(lpSection,lpName,nValue) \
+  IniSetInt(lpSection,lpName,((nValue) ? 1 : 0))
 #define LoadIniSection(lpSection,lpBuf,cchBuf) \
-  GetPrivateProfileSection(lpSection,lpBuf,cchBuf,szIniFile)
+  GetPrivateProfileSection(lpSection,lpBuf,(cchBuf),szIniFile)
 #define SaveIniSection(lpSection,lpBuf) \
   WritePrivateProfileSection(lpSection,lpBuf,szIniFile)
-int IniSectionGetString(LPCWSTR,LPCWSTR,LPCWSTR,LPWSTR,int);
-int IniSectionGetInt(LPCWSTR,LPCWSTR,int);
-UINT IniSectionGetUInt(LPCWSTR,LPCWSTR,UINT);
+int IniSectionGetString(LPCWSTR, LPCWSTR, LPCWSTR, LPWSTR, int);
+int IniSectionGetInt(LPCWSTR, LPCWSTR, int);
+UINT IniSectionGetUInt(LPCWSTR, LPCWSTR, UINT);
+__inline BOOL IniSectionGetBool(LPCWSTR lpCachedIniSection, LPCWSTR lpName, BOOL bDefault) {
+  return (IniSectionGetInt(lpCachedIniSection, lpName, ((bDefault) ? 1 : 0)) ? TRUE : FALSE);
+}
 BOOL IniSectionSetString(LPWSTR,LPCWSTR,LPCWSTR);
 __inline BOOL IniSectionSetInt(LPWSTR lpCachedIniSection,LPCWSTR lpName,int i) {
   WCHAR tch[32]={L'\0'}; StringCchPrintf(tch,COUNTOF(tch),L"%i",i); return IniSectionSetString(lpCachedIniSection,lpName,tch);
+}
+__inline BOOL IniSectionSetBool(LPWSTR lpCachedIniSection, LPCWSTR lpName, BOOL b)
+{
+  return IniSectionSetInt(lpCachedIniSection, lpName, (b ? 1 : 0));
 }
 
 
@@ -84,6 +96,8 @@ __inline BOOL IniSectionSetInt(LPWSTR lpCachedIniSection,LPCWSTR lpName,int i) {
 
 #define IsWinServer() IsWindowsServer()          // Indicates if the current OS is a Windows Server release.
                                                  //   Applications that need to distinguish between server and client versions of Windows should call this function.
+
+#define SCVS_NP3_SPACE_OPT (SCVS_RECTANGULARSELECTION | SCVS_NOWRAPLINESTART)
 
 
 enum BufferSizes {
@@ -117,6 +131,7 @@ void SetWindowTransparentMode(HWND,BOOL);
 void CenterDlgInParent(HWND);
 void GetDlgPos(HWND,LPINT,LPINT);
 void SetDlgPos(HWND,int,int);
+//void SnapToDefaultButton(HWND);
 void ResizeDlg_Init(HWND,int,int,int);
 void ResizeDlg_Destroy(HWND,int*,int*);
 void ResizeDlg_Size(HWND,LPARAM,int*,int*);
@@ -151,7 +166,7 @@ BOOL IsCmdEnabled(HWND, UINT);
 
 int FormatString(LPWSTR,int,UINT,...);
 
-
+BOOL GetKnownFolderPath(REFKNOWNFOLDERID, LPWSTR, size_t);
 void PathRelativeToApp(LPWSTR,LPWSTR,int,BOOL,BOOL,BOOL);
 void PathAbsoluteFromApp(LPWSTR,LPWSTR,int,BOOL);
 
@@ -205,16 +220,19 @@ UINT CharSetFromCodePage(UINT);
 typedef struct _mrulist {
 
   WCHAR  szRegKey[256];
-  int   iFlags;
-  int   iSize;
+  int    iFlags;
+  int    iSize;
   LPWSTR pszItems[MRU_MAXITEMS];
+  int    iEncoding[MRU_MAXITEMS];
+  int    iCaretPos[MRU_MAXITEMS];
 
 } MRULIST, *PMRULIST, *LPMRULIST;
 
 LPMRULIST MRU_Create(LPCWSTR,int,int);
 BOOL      MRU_Destroy(LPMRULIST);
-BOOL      MRU_Add(LPMRULIST,LPCWSTR);
-BOOL      MRU_AddFile(LPMRULIST,LPCWSTR,BOOL,BOOL);
+BOOL      MRU_Add(LPMRULIST,LPCWSTR,int,int);
+BOOL      MRU_FindFile(LPMRULIST,LPCWSTR,int*);
+BOOL      MRU_AddFile(LPMRULIST,LPCWSTR,BOOL,BOOL,int,int);
 BOOL      MRU_Delete(LPMRULIST,int);
 BOOL      MRU_DeleteFileFromStore(LPMRULIST,LPCWSTR);
 BOOL      MRU_Empty(LPMRULIST);
@@ -334,9 +352,91 @@ inline int _StringCchCmpINW(PCNZWCH s1,int l1,PCNZWCH s2,int l2) {
 #define StringCchCompareIX(s1,s2)        StringCchCompareIXA((s1),(s2))
 #endif
 
+// =====  File Encoding  =====
 
-// including <pathcch.h> and linking against pathcch.lib causes an
-// API-MS-WIN-CORE-PATH-L1-1-0.DLL  library missing error, 
+extern int g_DOSEncoding;
+
+#define NCP_DEFAULT            1
+#define NCP_UTF8               2
+#define NCP_UTF8_SIGN          4
+#define NCP_UNICODE            8
+#define NCP_UNICODE_REVERSE   16
+#define NCP_UNICODE_BOM       32
+#define NCP_8BIT              64
+#define NCP_ANSI             128
+#define NCP_OEM              256
+#define NCP_MBCS             512
+#define NCP_INTERNAL          (NCP_DEFAULT|NCP_UTF8|NCP_UTF8_SIGN|NCP_UNICODE|NCP_UNICODE_REVERSE|NCP_UNICODE_BOM|NCP_ANSI|NCP_OEM|NCP_MBCS)
+#define NCP_RECODE           1024
+
+#define CPI_GET               -2
+#define CPI_NONE              -1
+#define CPI_ANSI_DEFAULT       0
+#define CPI_OEM                1
+#define CPI_UNICODEBOM         2
+#define CPI_UNICODEBEBOM       3
+#define CPI_UNICODE            4
+#define CPI_UNICODEBE          5
+#define CPI_UTF8               6
+#define CPI_UTF8SIGN           7
+#define CPI_UTF7               8
+
+#define IDS_ENCODINGNAME0  61000
+#define IDS_EOLMODENAME0   62000
+
+typedef struct _np2encoding {
+  UINT    uFlags;
+  UINT    uCodePage;
+  char*   pszParseNames;
+  int     idsName;
+  WCHAR   wchLabel[64];
+} NP2ENCODING;
+
+int  Encoding_CountOf();
+int  Encoding_Current(int);    // getter/setter
+int  Encoding_Source(int);     // getter/setter
+int  Encoding_SrcWeak(int);    // getter/setter
+BOOL Encoding_HasChanged(int); // query/setter
+
+void Encoding_InitDefaults();
+int  Encoding_MapIniSetting(BOOL,int);
+int  Encoding_MapUnicode(int);
+void Encoding_GetLabel(int);
+int  Encoding_MatchW(LPCWSTR);
+int  Encoding_MatchA(char*);
+BOOL Encoding_IsValid(int);
+int  Encoding_GetByCodePage(UINT);
+void Encoding_AddToListView(HWND,int,BOOL);
+BOOL Encoding_GetFromListView(HWND,int *);
+void Encoding_AddToComboboxEx(HWND,int,BOOL);
+BOOL Encoding_GetFromComboboxEx(HWND,int *);
+BOOL Encoding_IsDefault(int);
+BOOL Encoding_IsANSI(int);
+BOOL Encoding_IsOEM(int);
+
+UINT Encoding_SciGetCodePage(HWND);
+int  Encoding_SciMappedCodePage(int);
+void Encoding_SciSetCodePage(HWND,int);
+
+
+BOOL IsUnicode(const char*,int,LPBOOL,LPBOOL);
+BOOL IsUTF8(const char*,int);
+BOOL IsUTF7(const char*,int);
+
+#define IsUTF8Signature(p) \
+          ((*(p+0) == '\xEF' && *(p+1) == '\xBB' && *(p+2) == '\xBF'))
+
+
+#define UTF8StringStart(p) \
+          (IsUTF8Signature(p)) ? (p+3) : (p)
+
+INT UTF8_mbslen_bytes(LPCSTR utf8_string);
+INT UTF8_mbslen(LPCSTR source,INT byte_length);
+
+// --------------------------------------------------------------------------------------------------------------------------------
+
+// including <pathcch.h> and linking against pathcch.lib
+// api-ms-win-core-path-l1-1-0.dll  library : Minimum supported client is Windows 8 :-/
 // so switch back to previous (deprecated) methods:
 inline HRESULT PathCchAppend(PWSTR p,size_t l,PCWSTR a)          { UNUSED(l); return (PathAppend(p,a) ? S_OK : E_FAIL); }
 inline HRESULT PathCchCanonicalize(PWSTR p,size_t l,PCWSTR a)    { UNUSED(l); return (PathCanonicalize(p,a) ? S_OK : E_FAIL); }

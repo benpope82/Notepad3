@@ -1,8 +1,8 @@
 //{{NO_DEPENDENCIES}}
-// Von Microsoft Visual C++ generierte Includedatei.
-// Verwendet durch Notepad3.rc
+// Microsoft Visual C++ generated include file.
+// Used by Notepad3.rc
 //
-#define IDR_RT_MANIFEST                   1
+#define IDR_RT_MANIFEST                 1
 #define IDR_MAINWND                     100
 #define IDC_FINDTEXT                    100
 #define IDC_LINENUM                     100
@@ -55,6 +55,7 @@
 #define IDC_AUTOSTRIPBLANKS             103
 #define IDC_ENCODINGFROMFILEVARS        103
 #define IDC_WEBPAGE2                    103
+#define IDC_PRESERVECARET               103
 #define IDC_MODWEBPAGE2                 104
 #define IDD_ENCODING                    104
 #define IDC_MOD_PAGE2                   104
@@ -121,6 +122,7 @@
 #define IDC_WILDCARDSEARCH              154
 #define IDC_SCI_VERSION                 155
 #define IDR_MAINWND2                    156
+#define IDC_REMOVE                      157
 #define IDACC_FIND                      200
 #define IDACC_REPLACE                   201
 #define IDACC_SAVEPOS                   202
@@ -380,7 +382,7 @@
 #define IDM_VIEW_MARKOCCURRENCES_WORD   40452
 #define IDM_VIEW_AUTOCOMPLETEWORDS      40453
 #define IDM_VIEW_ACCELWORDNAV           40454
-#define IDM_VIEW_VIRTSPACERECTSEL       40455
+#define IDM_VIEW_NOPRESERVECARET        40455
 #define IDM_HELP_ABOUT                  40500
 #define IDM_HELP_CMD                    40501
 #define IDM_TRAY_RESTORE                40600
@@ -429,7 +431,7 @@
 #define IDS_ERR_ENCODINGNA              50014
 #define IDS_ERR_UNICODE                 50015
 #define IDS_ERR_UNICODE2                50016
-#define IDS_WARNLOADBIGFILE             50017
+#define IDS_WARN_LOAD_BIG_FILE          50017
 #define IDS_ERR_DROP                    50018
 #define IDS_ASK_SAVE                    50019
 #define IDS_ASK_REVERT                  50020
@@ -454,6 +456,7 @@
 #define IDS_SETTINGSNOTSAVED            50039
 #define IDS_EXPORT_FAIL                 50040
 #define IDS_ERR_ACCESSDENIED            50041
+#define IDS_WARN_UNKNOWN_EXT            50042
 #define IDS_CMDLINEHELP                 60000
 #define IDM_EDIT_INSERT_GUID            60001
 #define IDC_STATIC                      -1
@@ -462,7 +465,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NO_MFC                       1
+#define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        600
 #define _APS_NEXT_COMMAND_VALUE         700
 #define _APS_NEXT_CONTROL_VALUE         800
